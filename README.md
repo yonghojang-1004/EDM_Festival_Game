@@ -22,4 +22,7 @@ EDM Festival Game Project
 ### 배경음악
     낮 - big room, 노을 - progresive house, 야간 - hardstyle 예정
 
+### 클리어 조건
+    곡 별 drop이 터지는 시간에 목표(펜스)에 도달해 있는지 여부 확인 -> 성공/실패 판단
+
 
