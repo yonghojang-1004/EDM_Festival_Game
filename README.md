@@ -8,8 +8,10 @@ EDM Festival Game Project
 # 개요
 ## 구성
 ### 캐릭터
-     사람 캐릭터 생성
-     방해꾼 사람 캐릭터 생성
+     > 사람 캐릭터 생성 - Taichi Character Pack Asset으로 결정
+     ![A]t text]("Player Character Image.png")
+
+     > 방해꾼 사람 캐릭터 생성
 
 ### 스테이지
     목표 설정 (펜스)
