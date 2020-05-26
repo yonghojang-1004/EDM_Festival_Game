@@ -31,4 +31,41 @@ EDM Festival Game Project
 ### 클리어 조건
     곡 별 drop이 터지는 시간에 목표(펜스)에 도달해 있는지 여부 확인 -> 성공/실패 판단
 
+## 개발
+### player Animation 추가 - walking, punching
+    > Player Animator 관련 코드 작성
+    ```
+    public class PlayerMovement : MonoBehaviour
+    {
+        Vector3 movement;
+        Animator animator;
 
+        // Start is called before the first frame update
+        void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            // 매 프레임마다 상하/좌우/펀치 입력 여부 확인
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            float punching = Input.GetAxis("Jump");
+
+            movement.Set(horizontal, 0f, vertical);
+            movement.Normalize();
+
+            // 걷는 Animation 재생 위해 상하좌우 입력 여부 확인
+            bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0f);
+            bool hasVerticalInput = !Mathf.Approximately(vertical, 0f);
+            bool isWalking = hasHorizontalInput || hasVerticalInput;
+            animator.SetBool("IsWalking", isWalking);
+
+            // 펀칭 Animation 재생 위해  spacebar 입력 여부 확인
+            bool isPunching = !Mathf.Approximately(punching, 0f);
+            animator.SetBool("IsPunching", isPunching);
+        }
+    }
+    ```
