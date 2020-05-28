@@ -24,6 +24,7 @@ EDM Festival Game Project
         > 고정형 - 방해꾼마다 특정한 위치에 있다가 플레이어로부터 물리적 힘을 받으면 플레이어를 밀기 위해 따라다님.
         > 배회형 - 방해꾼마다 특정 지역을 돌아다니다가 플레이어로부터 물리적 힘을 받으면 플레이어를 밀기 위해 따라다님.
         > 시비형 - 방해꾼마다 특정 지역을 돌아다니다가 플레이어가 시야 안에 들어오면 플레이어를 밀기 위해 따라다님.
+          ㄴ 항상 걸어다니는 Animation 재생, 특정 조건 충족시(player가 시야에 들어옴) 때리는 Animation 재생 / Animator Controller를 통해 구현.
 
 ### 배경음악
     낮 - big room, 노을 - progresive house, 야간 - hardstyle 예정
