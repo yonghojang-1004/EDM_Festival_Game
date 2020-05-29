@@ -38,14 +38,17 @@ EDM Festival Game Project
     > player rotation 값 추가 및 Animation 적용
     ```
     public class PlayerMovement : MonoBehaviour
-    {
-        Vector3 movement;
+{
+    Vector3 movement;
     Quaternion rotation = Quaternion.identity;
     Animator animator;
     Rigidbody playerRigidbody;
 
     // 캐릭터가 1초간 회전하는 각도를 라디안으로 저장.
     public float turnSpeed = 20f;
+
+    // 캐릭터의 이동 속도 설정.
+    public float velocity = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +59,8 @@ EDM Festival Game Project
 
     private void OnAnimatorMove()
     {
-        playerRigidbody.MovePosition(playerRigidbody.position + movement * animator.deltaPosition.magnitude);
+        // 키 입력시 변하는 위치값과 회전값 지정.
+        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity);
         playerRigidbody.MoveRotation(rotation);
     }
 
@@ -85,4 +89,6 @@ EDM Festival Game Project
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, movement, turnSpeed * Time.deltaTime, 0f);
         rotation = Quaternion.LookRotation(desiredForward);
     }
+}
+
     ```
