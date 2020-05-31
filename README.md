@@ -48,7 +48,7 @@ EDM Festival Game Project
     public float turnSpeed = 20f;
 
     // 캐릭터의 이동 속도 설정.
-    public float velocity = 0.01f;
+    public float velocity = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,7 @@ EDM Festival Game Project
         float vertical = Input.GetAxis("Vertical");
         float punching = Input.GetAxis("Jump");
 
-        movement.Set(horizontal, 0f, vertical);
+        movement.Set(horizontal * (-1.0f), 0f, vertical * (-1.0f));
         movement.Normalize();
 
         // 걷는 Animation 재생 위해 상하좌우 입력 여부 확인
@@ -91,4 +91,8 @@ EDM Festival Game Project
     }
 }
 
+
     ```
+
+### 카메라 설정
+    > virtual camera로 follow => player 설정 // 이 과정에서 player가 거꾸로 움직여서 코드 수정. vector의 horizontal, vertical 값에 각각 -1 곱함.
