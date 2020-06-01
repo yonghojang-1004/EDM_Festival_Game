@@ -96,3 +96,7 @@ EDM Festival Game Project
 
 ### 카메라 설정
     > virtual camera로 follow => player 설정 // 이 과정에서 player가 거꾸로 움직여서 코드 수정. vector의 horizontal, vertical 값에 각각 -1 곱함.
+
+### collider 설정
+    > player 와 enemy 에게 gravity 부여.
+    > ground 및 fense에 collider 설정해서 캐릭터가 돌아다닐 수 있는 지표면과 장애물 설정.
