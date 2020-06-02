@@ -90,8 +90,6 @@ EDM Festival Game Project
         rotation = Quaternion.LookRotation(desiredForward);
     }
 }
-
-
     ```
 
 ### 카메라 설정
@@ -100,3 +98,41 @@ EDM Festival Game Project
 ### collider 설정
     > player 와 enemy 에게 gravity 부여.
     > ground 및 fense에 collider 설정해서 캐릭터가 돌아다닐 수 있는 지표면과 장애물 설정.
+
+### EnemyAround 코드 작성
+    > 
+    ```
+    public class EnemyAround : MonoBehaviour
+    {
+    // 이동에 사용할 에이전트
+    public NavMeshAgent navMeshAgent;
+
+    // 웨이포인트 (Enemy가 돌아다녀야할 좌표들)
+    public Transform[] waypoints;
+
+    int currentWaypointIndex;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        navMeshAgent.SetDestination(waypoints[0].position);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // 매 프레임마다 에이전트가 목적지에 도착했는지 확인
+        if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+        {
+            // 목적지에 도착! 
+            // 다음 목적지에 사용할 index 계산
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+            //목적지를 다음 웨이포인트로 이동
+            navMeshAgent.SetDestination(waypoints[currentWaypointIndex].position);
+        }
+    }
+    }
+    ```
+
+### Stage에 nevigation mesh 설정
+    > enemy가 해당 구역안에서 돌아다니도록 설정
