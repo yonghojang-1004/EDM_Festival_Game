@@ -48,7 +48,17 @@ EDM Festival Game Project
     public float turnSpeed = 20f;
 
     // 캐릭터의 이동 속도 설정.
-    public float velocity = 0.1f;
+    public float velocity = 0.03f;
+
+    // enemy 와 충돌했을 때, 튕겨져 나가는 힘이 발생하도록 설정.
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.transform.tag == "Enemy")
+        {
+            other.rigidbody.AddForce(new Vector3(300, 0, 300));
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +70,7 @@ EDM Festival Game Project
     private void OnAnimatorMove()
     {
         // 키 입력시 변하는 위치값과 회전값 지정.
-        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity);
+        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity * Time.deltaTime);
         playerRigidbody.MoveRotation(rotation);
     }
 
@@ -90,6 +100,7 @@ EDM Festival Game Project
         rotation = Quaternion.LookRotation(desiredForward);
     }
 }
+
     ```
 
 ### 카메라 설정
@@ -103,7 +114,7 @@ EDM Festival Game Project
     > 
     ```
     public class EnemyAround : MonoBehaviour
-    {
+{
     // 이동에 사용할 에이전트
     public NavMeshAgent navMeshAgent;
 
@@ -111,6 +122,16 @@ EDM Festival Game Project
     public Transform[] waypoints;
 
     int currentWaypointIndex;
+
+    // player와 충돌하면 튕겨져나가도록 설정.
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            other.rigidbody.AddForce(new Vector3(500, 0, 500));
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -131,7 +152,8 @@ EDM Festival Game Project
             navMeshAgent.SetDestination(waypoints[currentWaypointIndex].position);
         }
     }
-    }
+}
+
     ```
 
 ### Stage에 nevigation mesh 설정
