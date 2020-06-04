@@ -55,7 +55,7 @@ EDM Festival Game Project
     {
         if(other.transform.tag == "Enemy")
         {
-            other.rigidbody.AddForce(new Vector3(300, 0, 300));
+            other.rigidbody.AddForce(Vector3.forward * 1000);
 
         }
     }
@@ -101,6 +101,8 @@ EDM Festival Game Project
     }
 }
 
+}
+
     ```
 
 ### 카메라 설정
@@ -123,13 +125,23 @@ EDM Festival Game Project
 
     int currentWaypointIndex;
 
-    // player와 충돌하면 튕겨져나가도록 설정.
+    float checkTimer = 0f;
+
+    // player와 충돌하면 잠시 naviation을 멈추고, 튕겨져나가도록 설정. 그 후 다시 navigation 재개
     private void OnCollisionEnter(Collision other)
     {
+
         if (other.transform.tag == "Player")
         {
-            other.rigidbody.AddForce(new Vector3(500, 0, 500));
+            navMeshAgent.Stop();
+            other.rigidbody.AddForce(Vector3.forward * 1000);
 
+            while(checkTimer < 10f)
+            {
+                checkTimer += Time.deltaTime;
+            }
+            checkTimer = 0f;
+            navMeshAgent.Resume();
         }
     }
 
@@ -145,14 +157,15 @@ EDM Festival Game Project
         // 매 프레임마다 에이전트가 목적지에 도착했는지 확인
         if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
         {
-            // 목적지에 도착! 
-            // 다음 목적지에 사용할 index 계산
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-            //목적지를 다음 웨이포인트로 이동
-            navMeshAgent.SetDestination(waypoints[currentWaypointIndex].position);
+           // 목적지에 도착! 
+           // 다음 목적지에 사용할 index 계산
+           currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+           //목적지를 다음 웨이포인트로 이동
+           navMeshAgent.SetDestination(waypoints[currentWaypointIndex].position);    
         }
     }
 }
+
 
     ```
 
