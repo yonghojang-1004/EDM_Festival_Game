@@ -115,7 +115,7 @@ EDM Festival Game Project
 ### EnemyAround 코드 작성
     > 
     ```
-    public class EnemyAround : MonoBehaviour
+   public class EnemyAround : MonoBehaviour
 {
     // 이동에 사용할 에이전트
     public NavMeshAgent navMeshAgent;
@@ -128,6 +128,7 @@ EDM Festival Game Project
     float checkTimer = 0f;
 
     // player와 충돌하면 잠시 naviation을 멈추고, 튕겨져나가도록 설정. 그 후 다시 navigation 재개
+    PlayerMovement playermovement;
     private void OnCollisionEnter(Collision other)
     {
 
@@ -145,29 +146,73 @@ EDM Festival Game Project
         }
     }
 
+    // enemy의 시야에 player가 들어왔을 경우 player를 쫓도록 설정.
+    bool isPlayerDiscovered;
+    public void DiscoverPlayer()
+    {
+        isPlayerDiscovered = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent.SetDestination(waypoints[0].position);
+        navMeshAgent.SetDestination(waypoints[1].position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isPlayerDiscovered) // enemy 시야에 player가 한번이라도 들어왔다면 player를 쫓아 navigation 하도록 함.
+        {
+            navMeshAgent.SetDestination(waypoints[0].position);
+        }
         // 매 프레임마다 에이전트가 목적지에 도착했는지 확인
-        if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+        else if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
         {
            // 목적지에 도착! 
            // 다음 목적지에 사용할 index 계산
+           if((currentWaypointIndex+1)%waypoints.Length == 0)
+            {
+                currentWaypointIndex++;
+            }
+
            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
            //목적지를 다음 웨이포인트로 이동
            navMeshAgent.SetDestination(waypoints[currentWaypointIndex].position);    
         }
     }
 }
-
-
     ```
 
 ### Stage에 nevigation mesh 설정
     > enemy가 해당 구역안에서 돌아다니도록 설정
+
+
+### ViewRange 코드 작성
+    > player가 enemy 시야 안에 들어오면 기존에 진행하던 navigation  대신에 player를 쫓아다니도록 함.
+    ```
+    public class ViewRange : MonoBehaviour
+{
+    bool isPlayerInRange = false;
+    public Transform player;
+    public EnemyAround enemyAround;
+    // Start is called before the first frame update
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform == player)
+        {
+            isPlayerInRange = true;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (isPlayerInRange == true)
+        {
+            enemyAround.DiscoverPlayer(); // 이 부분 오류 발생으로 수정 필요
+        }
+    }
+}
+```
