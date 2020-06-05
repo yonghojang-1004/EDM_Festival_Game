@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,7 +14,17 @@ public class PlayerMovement : MonoBehaviour
     public float turnSpeed = 20f;
 
     // 캐릭터의 이동 속도 설정.
-    public float velocity = 0.01f;
+    public float velocity = 0.03f;
+
+    // enemy 와 충돌했을 때, 튕겨져 나가는 힘이 발생하도록 설정.
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.transform.tag == "Enemy")
+        {
+            other.rigidbody.AddForce(Vector3.forward * 1000);
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnAnimatorMove()
     {
         // 키 입력시 변하는 위치값과 회전값 지정.
-        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity);
+        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity * Time.deltaTime);
         playerRigidbody.MoveRotation(rotation);
     }
 
@@ -37,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         float punching = Input.GetAxis("Jump");
 
-        movement.Set(horizontal, 0f, vertical);
+        movement.Set(horizontal * (-1.0f), 0f, vertical * (-1.0f));
         movement.Normalize();
 
         // 걷는 Animation 재생 위해 상하좌우 입력 여부 확인
