@@ -56,7 +56,6 @@ EDM Festival Game Project
         if(other.transform.tag == "Enemy")
         {
             other.rigidbody.AddForce(Vector3.forward * 1000);
-
         }
     }
 
@@ -101,7 +100,6 @@ EDM Festival Game Project
     }
 }
 
-}
 
     ```
 
@@ -115,7 +113,7 @@ EDM Festival Game Project
 ### EnemyAround 코드 작성
     > 
     ```
-   public class EnemyAround : MonoBehaviour
+  public class EnemyAround : MonoBehaviour
 {
     // 이동에 사용할 에이전트
     public NavMeshAgent navMeshAgent;
@@ -137,7 +135,7 @@ EDM Festival Game Project
             navMeshAgent.Stop();
             other.rigidbody.AddForce(Vector3.forward * 1000);
 
-            while(checkTimer < 10f)
+            while(checkTimer < 50000f)
             {
                 checkTimer += Time.deltaTime;
             }
@@ -182,6 +180,8 @@ EDM Festival Game Project
         }
     }
 }
+
+}
     ```
 
 ### Stage에 nevigation mesh 설정
@@ -211,7 +211,7 @@ EDM Festival Game Project
     {
         if (isPlayerInRange == true)
         {
-            enemyAround.DiscoverPlayer(); // 이 부분 오류 발생으로 수정 필요
+            enemyAround.DiscoverPlayer(); 
         }
     }
 }
