@@ -216,3 +216,51 @@ EDM Festival Game Project
     }
 }
 ```
+
+### GameEnding 코드 작성
+    > Player가 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
+    ```
+    public class GameEnding : MonoBehaviour
+{
+    bool isPlayerAtGoal = false;
+    public Transform player;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform == player)
+        {
+            isPlayerAtGoal = true; // player가 Goal에 도착해있다는 것을 인지
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform == player)
+        {
+            isPlayerAtGoal = false; // player가 Goal에서 벗어났다는 것을 인지
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(true) // 시간요소 추가 예정
+        {
+            if (isPlayerAtGoal) // Player가 Goal에 도달했으면 Clear
+            {
+                print("clear"); // 다음 씬으로 넘어가도록 코딩 예정
+            }
+            //else // player가 Goal에 도달하지 못했으면 Fail
+            //{
+            //    print("fail"); // 지금 Stage 재시작.
+            //}
+        }
+    }
+}
+    ```
