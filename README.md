@@ -219,11 +219,20 @@ EDM Festival Game Project
 
 ### GameEnding 코드 작성
     > Player가 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
+    > 시간을 측정할 수 있는 기능 추가
     ```
-    public class GameEnding : MonoBehaviour
+    using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameEnding : MonoBehaviour
 {
     bool isPlayerAtGoal = false;
     public Transform player;
+    public Text timeText;
+    private float time;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -244,12 +253,16 @@ EDM Festival Game Project
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        time = 0.0f;
+}
 
     // Update is called once per frame
     void Update()
     {
+        // 흘러가는 시간을 계산
+        time += Time.deltaTime;
+        timeText.text = Mathf.Ceil(time).ToString();
+
         if(true) // 시간요소 추가 예정
         {
             if (isPlayerAtGoal) // Player가 Goal에 도달했으면 Clear
@@ -263,4 +276,5 @@ EDM Festival Game Project
         }
     }
 }
+
     ```
