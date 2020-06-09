@@ -221,11 +221,6 @@ EDM Festival Game Project
     > Player가 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
     > 시간을 측정할 수 있는 기능 추가
     ```
-    using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class GameEnding : MonoBehaviour
 {
