@@ -218,8 +218,9 @@ EDM Festival Game Project
 ```
 
 ### GameEnding 코드 작성
-    > Player가 특정시간에 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
+    > Player가 특정시간(특정 음악 Drop 시점)에 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
     > 제한시간안에 Goal에 도달하지 못하면 현재 Scene을 Relaod.
+    > Stage 1 BGM 추가 : Big Room (Mix Set 일부 발췌)
     ```
 
 public class GameEnding : MonoBehaviour
@@ -228,6 +229,7 @@ public class GameEnding : MonoBehaviour
     public Transform player;
     public Text timeText;
     private float time;
+    bool isCleared = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -260,21 +262,22 @@ public class GameEnding : MonoBehaviour
 
         if(true) // 시간요소 추가 예정
         {
-            if (time > 30f && time < 32f) // Player가 30~32초에 Goal에 도달했으면 Clear
+            if (time > 118f && time < 120f) // Player가 30~32초에 Goal에 도달했으면 Clear
             {
                 if(isPlayerAtGoal)
                 {
                     print("clear"); // 다음 씬으로 넘어가도록 코딩 예정
-
+                    isCleared = true;
                 }
             }
-            else if(time > 32f)
+            else if(time > 121f && isCleared == false)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 제한 시간안에 Goal에 도달하지 못하면 현재 Stage 재시작.
             }
         }
     }
 }
+
 
 
 
