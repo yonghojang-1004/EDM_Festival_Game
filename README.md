@@ -185,7 +185,7 @@ EDM Festival Game Project
     ```
 
 ### Stage에 nevigation mesh 설정
-    > enemy가 해당 구역안에서 돌아다니도록 설정 // 돌아다니는 적 13명 구현
+    > enemy가 해당 구역안에서 돌아다니도록 설정 // 돌아다니다가 시야에 Player가 들어오면 추적하는 적 13명 구현 +} 돌아다니다가 Player와 부딪히면 추적하는 적 구현
 
 
 ### ViewRange 코드 작성
