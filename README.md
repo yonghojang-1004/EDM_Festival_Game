@@ -111,7 +111,7 @@ EDM Festival Game Project
     > ground 및 fense에 collider 설정해서 캐릭터가 돌아다닐 수 있는 지표면과 장애물 설정.
 
 ### EnemyAround 코드 작성
-    > 
+    > 돌아다니다가 부딪힌 경우에만 Player을 쫓는 Enemy도 동일한 코드를 활용할 수 있도록 수정. -> isCrashed가 true가 되었을 경우에 Player을 추적할 수 있도록.
     ```
   public class EnemyAround : MonoBehaviour
 {
@@ -124,6 +124,7 @@ EDM Festival Game Project
     int currentWaypointIndex;
 
     float checkTimer = 0f;
+    bool isCrashed = false;
 
     // player와 충돌하면 잠시 naviation을 멈추고, 튕겨져나가도록 설정. 그 후 다시 navigation 재개
     PlayerMovement playermovement;
@@ -140,6 +141,7 @@ EDM Festival Game Project
                 checkTimer += Time.deltaTime;
             }
             checkTimer = 0f;
+            isCrashed = true;
             navMeshAgent.Resume();
         }
     }
@@ -160,7 +162,7 @@ EDM Festival Game Project
     // Update is called once per frame
     void Update()
     {
-        if(isPlayerDiscovered) // enemy 시야에 player가 한번이라도 들어왔다면 player를 쫓아 navigation 하도록 함.
+        if(isPlayerDiscovered || isCrashed) // enemy 시야에 player가 한번이라도 들어왔거나 부딪혔다면 player를 쫓아 navigation 하도록 함.
         {
             navMeshAgent.SetDestination(waypoints[0].position);
         }
@@ -180,6 +182,7 @@ EDM Festival Game Project
         }
     }
 }
+
 
 }
     ```
