@@ -222,7 +222,7 @@ EDM Festival Game Project
 
 ### GameEnding 코드 작성
     > Player가 특정시간(특정 음악 Drop 시점)에 Goal에 도달했는지를 확인하여 Stage를 종료시키는 코드
-    > 제한시간안에 Goal에 도달하지 못하면 현재 Scene을 Relaod.
+    > 제한시간안에 Goal에 도달하지 못하면  Fail 화면 출력 후 현재 Scene을 Relaod 
     > Stage 1 BGM 추가 : Big Room (Mix Set 일부 발췌)
     ```
 
@@ -233,6 +233,11 @@ public class GameEnding : MonoBehaviour
     public Text timeText;
     private float time;
     bool isCleared = false;
+    float endTimer = 0f;
+    public float fadeDuration = 1f;
+    public float displayImageDuration = 1f;
+
+    public CanvasGroup FailBackgroundImageCanvasGroup;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -247,6 +252,18 @@ public class GameEnding : MonoBehaviour
         if (other.transform == player)
         {
             isPlayerAtGoal = false; // player가 Goal에서 벗어났다는 것을 인지
+        }
+    }
+
+    void EndLevel(CanvasGroup imageCanvasGroup)
+    {
+        endTimer = endTimer + Time.deltaTime;
+        imageCanvasGroup.alpha = endTimer / fadeDuration;
+
+        // 타이머가 1초(fadeDuration) + displayImageDuration이 지나면 Scene 변경
+        if(endTimer > fadeDuration + displayImageDuration)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -275,11 +292,12 @@ public class GameEnding : MonoBehaviour
             }
             else if(time > 121f && isCleared == false)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 제한 시간안에 Goal에 도달하지 못하면 현재 Stage 재시작.
+                EndLevel(FailBackgroundImageCanvasGroup); // 제한 시간안에 Goal에 도달하지 못하면 현재 Stage 재시작.
             }
         }
     }
 }
+
 
 
 
