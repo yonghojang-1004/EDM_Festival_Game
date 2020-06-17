@@ -16,7 +16,7 @@ EDM Festival Game Project
 ### 스테이지
     목표 설정 (펜스)
     맵 구성(입구, 통로, 중앙분리 펜스 등)
-    낮, 노을, 야간 3 stage 구상중
+    두가지 음악 stage 구상중
 
 ### 장애요소
     방해꾼은 플레이어가 펜스에 쉽게 접근하지 못하도록 방해하는 역할. (미는 등의 물리적 상호작용 예정)
@@ -27,7 +27,7 @@ EDM Festival Game Project
           ㄴ 항상 걸어다니는 Animation 재생, 특정 조건 충족시(player가 시야에 들어옴) 때리는 Animation 재생 / Animator Controller를 통해 구현.
 
 ### 배경음악
-    낮 - big room, 노을 - progresive house, 야간 - hardstyle 예정
+    1 : big room, 2 : progresive house
 
 ### 클리어 조건
     곡 별 drop이 터지는 시간에 목표(펜스)에 도달해 있는지 여부 확인 -> 성공/실패 판단
@@ -268,11 +268,11 @@ public class GameEnding : MonoBehaviour
         {
             if(goNext)
             {
-                SceneManager.LoadScene(stageIndex + 1);
+                SceneManager.LoadScene(stageIndex + 1);  // 다음 스테이지로 이동
             }
             else
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 스테이지 재시작
             }
 
         }
@@ -309,7 +309,7 @@ public class GameEnding : MonoBehaviour
 
             if(isCleared)
             {
-                if(time > 130f)
+                if(time > 145f)
                 {
                     EndLevel(ClearBackgroundImageCanvasGroup, isCleared);
                 }
@@ -317,6 +317,7 @@ public class GameEnding : MonoBehaviour
         }
     }
 }
+
 
 
 
