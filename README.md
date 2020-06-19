@@ -226,6 +226,8 @@ EDM Festival Game Project
     > 제한시간안에 Goal에 도달하지 못하면  Fail 화면 출력 후 현재 Scene을 Relaod 
     > Stage 1 BGM 추가 : Big Room (Mix Set 일부 발췌)
     > Clear 할 경우 Drop 듣고 다음 스테이지로 이동할 수 있도록 코드 작성.
+    > Stage 2 BGM 추가 : Progressive House (Mix Set 일부 발췌)
+    > Stage 2 에서도 동일한 script 사용 위해 Drop 시점(Clear 판단 요소) 상수를 public 변수로 수정.
     ```
 
 public class GameEnding : MonoBehaviour
@@ -239,6 +241,7 @@ public class GameEnding : MonoBehaviour
     public float fadeDuration = 1f;
     public float displayImageDuration = 1f;
     public int stageIndex;
+    public float endTime;
 
     public CanvasGroup FailBackgroundImageCanvasGroup;
     public CanvasGroup ClearBackgroundImageCanvasGroup;
@@ -294,7 +297,7 @@ public class GameEnding : MonoBehaviour
 
         if(true) // 시간요소 추가 예정
         {
-            if (time > 113f && time < 116f) // Player가 30~32초에 Goal에 도달했으면 Clear
+            if (time > endTime && time < endTime + 3) // Player가 30~32초에 Goal에 도달했으면 Clear
             {
                 if(isPlayerAtGoal)
                 {
@@ -302,7 +305,7 @@ public class GameEnding : MonoBehaviour
                     isCleared = true;
                 }
             }
-            else if(time > 117f && isCleared == false)
+            else if(time > endTime + 4 && isCleared == false)
             {
                 EndLevel(FailBackgroundImageCanvasGroup, isCleared); // 제한 시간안에 Goal에 도달하지 못하면 현재 Stage 재시작.
             }
@@ -310,7 +313,7 @@ public class GameEnding : MonoBehaviour
 
             if(isCleared)
             {
-                if(time > 145f)
+                if(time > endTime+ 32)
                 {
                     EndLevel(ClearBackgroundImageCanvasGroup, isCleared);
                 }
