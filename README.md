@@ -321,10 +321,21 @@ public class GameEnding : MonoBehaviour
         }
     }
 }
+    ```
 
-
-
-
-
+    ### Menu 코드 작성
+    > Menu에서 버튼을 누르면 이동할 Scene을 선택하는 코드 작성
 
     ```
+    public class Menu : MonoBehaviour
+{
+
+    public void OnClickStart()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void OnClickExit()
+    {
+        Application.Quit();
+    }
+}
