@@ -69,7 +69,7 @@ EDM Festival Game Project
     private void OnAnimatorMove()
     {
         // 키 입력시 변하는 위치값과 회전값 지정.
-        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity * Time.deltaTime);
+        playerRigidbody.MovePosition(playerRigidbody.position + movement * velocity * Time.smoothDeltaTime);
         playerRigidbody.MoveRotation(rotation);
     }
 
@@ -99,6 +99,7 @@ EDM Festival Game Project
         rotation = Quaternion.LookRotation(desiredForward);
     }
 }
+
 
 
     ```
@@ -313,7 +314,7 @@ public class GameEnding : MonoBehaviour
 
             if(isCleared)
             {
-                if(time > endTime+ 32)
+                if(time > endTime + 34)
                 {
                     EndLevel(ClearBackgroundImageCanvasGroup, isCleared);
                 }
@@ -323,7 +324,7 @@ public class GameEnding : MonoBehaviour
 }
     ```
 
-    ### Menu 코드 작성
+### Menu 코드 작성
     > Menu에서 버튼을 누르면 이동할 Scene을 선택하는 코드 작성
 
     ```
