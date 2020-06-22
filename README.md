@@ -328,15 +328,29 @@ public class GameEnding : MonoBehaviour
     > Menu에서 버튼을 누르면 이동할 Scene을 선택하는 코드 작성
 
     ```
-    public class Menu : MonoBehaviour
+   public class Menu : MonoBehaviour
 {
 
     public void OnClickStart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void OnClickExit()
     {
         Application.Quit();
+    }
+}
+
+
+### StartGame 코드 작성
+    > Menu 화면 전에 Start Scene 추가하여 관련 코드 작성
+
+    ```
+    public class StartGame : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public void OnClickMenu()
+    {
+        SceneManager.LoadScene(3);
     }
 }
