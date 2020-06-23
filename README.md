@@ -189,7 +189,7 @@ EDM Festival Game Project
     ```
 
 ### Stage에 navigation mesh 설정
-    > enemy가 해당 구역안에서 돌아다니도록 설정 // 돌아다니다가 시야에 Player가 들어오면 추적하는 적 13명 구현 +} 돌아다니다가 Player와 부딪히면 추적하는 적 구현
+    > enemy가 해당 구역안에서 돌아다니도록 설정 // 돌아다니다가 시야에 Player가 들어오면 추적하는 적 구현 + 돌아다니다가 Player와 부딪히면 추적하는 적 구현 + 가만히 있다가 Player와 부딪히면 추적하는 적 구현
     > Stage 2에도 동일하게 navigation mesh 설정 및 Stage 1보다 많은 수의 적 구현
 
 
@@ -298,7 +298,7 @@ public class GameEnding : MonoBehaviour
 
         if(true) // 시간요소 추가 예정
         {
-            if (time > endTime && time < endTime + 3) // Player가 30~32초에 Goal에 도달했으면 Clear
+            if (time > endTime && time < endTime + 3) // Player가 Drop에 맞춰 Goal에 도달했으면 Clear
             {
                 if(isPlayerAtGoal)
                 {
@@ -322,6 +322,7 @@ public class GameEnding : MonoBehaviour
         }
     }
 }
+
     ```
 
 ### Menu 코드 작성
