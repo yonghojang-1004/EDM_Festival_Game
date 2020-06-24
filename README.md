@@ -190,7 +190,7 @@ EDM Festival Game Project
 
 ### Stage에 navigation mesh 설정
     > enemy가 해당 구역안에서 돌아다니도록 설정 // 돌아다니다가 시야에 Player가 들어오면 추적하는 적 구현 + 돌아다니다가 Player와 부딪히면 추적하는 적 구현 + 가만히 있다가 Player와 부딪히면 추적하는 적 구현
-    > Stage 2에도 동일하게 navigation mesh 설정 및 Stage 1보다 많은 수의 적 구현
+    > Stage 2에도 동일하게 navigation mesh 설정 및 Stage 1보다 많은 수의 적 구현(Stage 1 : 13 + 18 + 57 = 88  / Stage 2 : 11 + 6 + 951 = 968)
 
 
 ### ViewRange 코드 작성
