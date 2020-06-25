@@ -37,7 +37,7 @@ EDM Festival Game Project
     > player Animation 추가 - walking, punching
     > player rotation 값 추가 및 Animation 적용
     ```
-    public class PlayerMovement : MonoBehaviour
+   public class PlayerMovement : MonoBehaviour
 {
     Vector3 movement;
     Quaternion rotation = Quaternion.identity;
@@ -114,7 +114,7 @@ EDM Festival Game Project
 ### EnemyAround 코드 작성
     > 돌아다니다가 부딪힌 경우에만 Player을 쫓는 Enemy도 동일한 코드를 활용할 수 있도록 수정. -> isCrashed가 true가 되었을 경우에 Player을 추적할 수 있도록.
     ```
-  public class EnemyAround : MonoBehaviour
+ public class EnemyAround : MonoBehaviour
 {
     // 이동에 사용할 에이전트
     public NavMeshAgent navMeshAgent;
@@ -168,7 +168,7 @@ EDM Festival Game Project
             navMeshAgent.SetDestination(waypoints[0].position);
         }
         // 매 프레임마다 에이전트가 목적지에 도착했는지 확인
-        else if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+        else if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
            // 목적지에 도착! 
            // 다음 목적지에 사용할 index 계산
@@ -185,6 +185,7 @@ EDM Festival Game Project
 }
 
 
+
 }
     ```
 
@@ -196,7 +197,7 @@ EDM Festival Game Project
 ### ViewRange 코드 작성
     > player가 enemy 시야 안에 들어오면 기존에 진행하던 navigation  대신에 player를 쫓아다니도록 함.
     ```
-    public class ViewRange : MonoBehaviour
+   public class ViewRange : MonoBehaviour
 {
     bool isPlayerInRange = false;
     public Transform player;
@@ -216,7 +217,7 @@ EDM Festival Game Project
     {
         if (isPlayerInRange == true)
         {
-            enemyAround.DiscoverPlayer(); 
+            enemyAround.DiscoverPlayer();
         }
     }
 }
@@ -235,7 +236,6 @@ public class GameEnding : MonoBehaviour
 {
     bool isPlayerAtGoal = false;
     public Transform player;
-    public Text timeText;
     private float time;
     bool isCleared = false;
     float endTimer = 0f;
@@ -243,6 +243,7 @@ public class GameEnding : MonoBehaviour
     public float displayImageDuration = 1f;
     public int stageIndex;
     public float endTime;
+    public float delayClear;
 
     public CanvasGroup FailBackgroundImageCanvasGroup;
     public CanvasGroup ClearBackgroundImageCanvasGroup;
@@ -294,19 +295,17 @@ public class GameEnding : MonoBehaviour
     {
         // 흘러가는 시간을 계산
         time += Time.deltaTime;
-        timeText.text = "시간 : " + Mathf.Round(time);
 
         if(true) // 시간요소 추가 예정
         {
-            if (time > endTime && time < endTime + 3) // Player가 Drop에 맞춰 Goal에 도달했으면 Clear
+            if (time > endTime && time < endTime + 4) // Player가 Drop에 맞춰 Goal에 도달했으면 Clear
             {
                 if(isPlayerAtGoal)
                 {
-                    print("clear"); // 다음 씬으로 넘어가도록 코딩 예정
                     isCleared = true;
                 }
             }
-            else if(time > endTime + 4 && isCleared == false)
+            else if(time > endTime + 4.7 && isCleared == false)
             {
                 EndLevel(FailBackgroundImageCanvasGroup, isCleared); // 제한 시간안에 Goal에 도달하지 못하면 현재 Stage 재시작.
             }
@@ -314,7 +313,7 @@ public class GameEnding : MonoBehaviour
 
             if(isCleared)
             {
-                if(time > endTime + 34)
+                if(time > endTime + delayClear)
                 {
                     EndLevel(ClearBackgroundImageCanvasGroup, isCleared);
                 }
@@ -323,10 +322,12 @@ public class GameEnding : MonoBehaviour
     }
 }
 
+}
+
     ```
 
 ### Menu 코드 작성
-    > Menu에서 버튼을 누르면 이동할 Scene을 선택하는 코드 작성
+    > Menu에서 버튼을 통해 Game 시작 혹은 Exit을 선택하는 코드 작성
 
     ```
    public class Menu : MonoBehaviour
@@ -343,14 +344,20 @@ public class GameEnding : MonoBehaviour
 }
 
 
-### StartGame 코드 작성
-    > Menu 화면 전에 Start Scene 추가하여 관련 코드 작성
+
+### ButtonSelect 코드 작성
+    > 게임 도중 버튼을 통해 Stage 재시작 혹은 Menu 화면으로 돌아가는 코드 작성
+    > Start 화면에서 Menu 화면으로 버튼을 통해 넘어갈 때도 해당 코드 활용
 
     ```
-    public class StartGame : MonoBehaviour
+    public class ButtonSelect : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void OnClickMenu()
+    public void OnClickLoop()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void OnClickX()
     {
         SceneManager.LoadScene(3);
     }
